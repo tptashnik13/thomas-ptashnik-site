@@ -75,41 +75,8 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="contact-block">
             <h3 class="contact-heading">Ready to get started?</h3>
-            <p class="contact-sub">Tell me a bit about where you are and what you're working toward. I'll respond within 48 hours.</p>
-
-            <!--
-              FORM SETUP: To activate this form:
-              1. Create a free account at formspree.io
-              2. Create a new form and copy the form ID
-              3. Replace YOUR_FORM_ID below with your actual ID
-            -->
-            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" id="name" name="name" required placeholder="Your name" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" required placeholder="you@example.com" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="interest">What interests you most?</label>
-                <select id="interest" name="interest">
-                  <option value="">Select one</option>
-                  <option value="coaching">AI Coaching</option>
-                  <option value="workflows">Agent Workflows</option>
-                  <option value="website">Website or Tool Build</option>
-                  <option value="unsure">Not sure yet</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="message">What are you working on?</label>
-                <textarea id="message" name="message" rows="4" placeholder="A sentence or two is plenty."></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Send a message</button>
-            </form>
+            <p class="contact-sub">I'll respond within 48 hours.</p>
+            <a href="/contact" class="btn btn-primary">Get in touch →</a>
           </div>
         </div>
       </div>
@@ -151,7 +118,7 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="result-ctas">
             <a href="/research" class="btn btn-primary">See my research →</a>
-            <a href="mailto:thomasptashnik@gmail.com" class="btn btn-outline">Get in touch</a>
+            <a href="/contact" class="btn btn-outline">Get in touch</a>
           </div>
         </div>
       </div>
