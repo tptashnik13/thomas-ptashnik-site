@@ -225,14 +225,27 @@ import Layout from '../layouts/Layout.astro';
       width: 260px;
       height: 260px;
     }
-    .hero-nav-btns {
-      flex-wrap: wrap;
-    }
     .hero-text {
       text-align: center;
     }
     .hero-ctas {
       justify-content: center;
+      align-items: center;
+    }
+    .hero-nav-btns {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero-nav-btns .btn {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-label {
+      font-size: 0.64rem;
+      letter-spacing: 0.07em;
     }
   }
 
