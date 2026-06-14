@@ -40,11 +40,11 @@ import Layout from '../layouts/Layout.astro';
           <div class="press-card-coverage">
             <div class="press-coverage-item">
               <span class="press-coverage-outlet">China Business Knowledge</span>
-              <span class="press-coverage-headline">"How motherhood boosts work effort and initiatives"</span>
+              <a href="https://cbk.bschool.cuhk.edu.hk/how-motherhood-boosts-work-effort-and-initiatives/" target="_blank" rel="noopener" class="press-coverage-headline">"How motherhood boosts work effort and initiatives"</a>
             </div>
             <div class="press-coverage-item">
               <span class="press-coverage-outlet">UNM News</span>
-              <span class="press-coverage-headline">"UNM study uncovers a 'motherhood advantage' in the workplace"</span>
+              <a href="https://news.unm.edu/news/unm-study-challenges-motherhood-penalty-finding-workplace-advantages-for-moms" target="_blank" rel="noopener" class="press-coverage-headline">"UNM study uncovers a 'motherhood advantage' in the workplace"</a>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ import Layout from '../layouts/Layout.astro';
         <!-- Fast Company -->
         <div class="press-card">
           <span class="press-outlet">Fast Company</span>
-          <h3 class="press-card-headline press-card-headline--sm">Does being nice hurt your career?</h3>
+          <h3 class="press-card-headline press-card-headline--sm"><a href="https://www.fastcompany.com/90759430/does-being-nice-hurt-your-career" target="_blank" rel="noopener" class="press-title-link">Does being nice hurt your career?</a></h3>
           <p class="press-card-body">
             Research challenging the assumption that kindness and career success are in tension,
             and what the evidence actually shows about nice people in the workplace.
@@ -62,7 +62,7 @@ import Layout from '../layouts/Layout.astro';
         <!-- PC TikTok -->
         <div class="press-card">
           <span class="press-outlet">Providence College Business</span>
-          <h3 class="press-card-headline press-card-headline--sm">Why I teach management</h3>
+          <h3 class="press-card-headline press-card-headline--sm"><a href="https://www.tiktok.com/@pcbusinessschool/video/7558853854960422158" target="_blank" rel="noopener" class="press-title-link">Why I teach management</a></h3>
           <p class="press-card-body">
             Featured alongside PC Business faculty discussing their passion for teaching
             and developing the next generation of managers and leaders.
@@ -72,7 +72,7 @@ import Layout from '../layouts/Layout.astro';
         <!-- PC News -->
         <div class="press-card">
           <span class="press-outlet">PC News</span>
-          <h3 class="press-card-headline press-card-headline--sm">Providence College team wins national business ethics competition</h3>
+          <h3 class="press-card-headline press-card-headline--sm"><a href="https://news.providence.edu/national-business-ethics-competition/" target="_blank" rel="noopener" class="press-title-link">Providence College team wins national business ethics competition</a></h3>
           <p class="press-card-body">
             Coverage of PC student teams competing and winning at the national level in
             business ethics, with Dr. Ptashnik involved in preparing and coaching the team.
@@ -207,6 +207,22 @@ import Layout from '../layouts/Layout.astro';
     color: var(--dark);
     font-style: italic;
     line-height: 1.5;
+    text-decoration: none;
+  }
+
+  a.press-coverage-headline:hover {
+    color: var(--navy);
+    text-decoration: underline;
+  }
+
+  .press-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .press-title-link:hover {
+    color: var(--navy);
+    text-decoration: underline;
   }
 
   /* Shared card elements */
