@@ -42,7 +42,8 @@ import Layout from '../layouts/Layout.astro';
           <h2 class="entry-title">Research</h2>
           <p class="entry-desc">
             Publications in <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>,
-            with an active pipeline on well-being, working parents, and organizational behavior.
+            with an active pipeline on the HR solutions to the challenges faced by working parents,
+            the psychometrics of well-being, and the deployment of remote work arrangements.
           </p>
           <span class="entry-link">Explore research →</span>
         </a>
@@ -80,8 +81,8 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 5rem;
+    grid-template-columns: 460px 1fr;
+    gap: 4rem;
     align-items: center;
   }
 
@@ -92,8 +93,8 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .headshot-img {
-    width: 380px;
-    height: 380px;
+    width: 440px;
+    height: 440px;
     object-fit: cover;
     object-position: center top;
     border-radius: 50%;
@@ -139,8 +140,13 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-nav-btns {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .hero-nav-btns .btn {
+    font-size: 0.78rem;
+    padding: 0.6rem 1.1rem;
   }
 
   /* ── Entry cards ──────────────────────── */
@@ -197,14 +203,14 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ── Responsive ───────────────────────── */
-  @media (max-width: 960px) {
+  @media (max-width: 1080px) {
     .hero-inner {
-      grid-template-columns: 320px 1fr;
+      grid-template-columns: 360px 1fr;
       gap: 3rem;
     }
     .headshot-img {
-      width: 300px;
-      height: 300px;
+      width: 340px;
+      height: 340px;
     }
   }
 
@@ -214,8 +220,11 @@ import Layout from '../layouts/Layout.astro';
       gap: 2.5rem;
     }
     .headshot-img {
-      width: 240px;
-      height: 240px;
+      width: 260px;
+      height: 260px;
+    }
+    .hero-nav-btns {
+      flex-wrap: wrap;
     }
     .hero-text {
       text-align: center;
