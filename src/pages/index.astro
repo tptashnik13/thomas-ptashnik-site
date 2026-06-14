@@ -21,10 +21,12 @@ import Layout from '../layouts/Layout.astro';
           I coach professionals on AI.
         </p>
         <div class="hero-ctas">
-          <a href="/cv.docx" download class="btn btn-primary">Download CV</a>
-          <a href="/research" class="btn btn-outline">Research</a>
-          <a href="/teaching" class="btn btn-outline">Teaching</a>
-          <a href="/consulting" class="btn btn-outline">Work with me</a>
+          <a href="/cv.docx" download class="btn btn-primary cv-btn">Download CV</a>
+          <div class="hero-nav-btns">
+            <a href="/research" class="btn btn-outline">Research</a>
+            <a href="/teaching" class="btn btn-outline">Teaching</a>
+            <a href="/consulting" class="btn btn-outline">Work with me</a>
+          </div>
         </div>
       </div>
 
@@ -37,7 +39,6 @@ import Layout from '../layouts/Layout.astro';
       <div class="entry-grid">
 
         <a href="/research" class="entry-card">
-          <span class="entry-num">01</span>
           <h2 class="entry-title">Research</h2>
           <p class="entry-desc">
             Publications in <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>,
@@ -47,20 +48,18 @@ import Layout from '../layouts/Layout.astro';
         </a>
 
         <a href="/teaching" class="entry-card">
-          <span class="entry-num">02</span>
           <h2 class="entry-title">Teaching</h2>
           <p class="entry-desc">
             Courses in Human Resource Management and Managing &amp; Organizing at Providence College,
-            plus The Noticing Project — an educational initiative for high school and college students.
+            plus The Noticing Project, an educational initiative for high school and college students.
           </p>
           <span class="entry-link">See courses →</span>
         </a>
 
         <a href="/consulting" class="entry-card">
-          <span class="entry-num">03</span>
           <h2 class="entry-title">Consulting</h2>
           <p class="entry-desc">
-            1:1 coaching for professionals navigating the shift to AI — from building agent workflows
+            1:1 coaching for professionals navigating the shift to AI: from building agent workflows
             to developing the tools and sites you need to move faster.
           </p>
           <span class="entry-link">Work with me →</span>
@@ -98,6 +97,7 @@ import Layout from '../layouts/Layout.astro';
     object-fit: cover;
     object-position: center top;
     border-radius: 50%;
+    filter: grayscale(100%);
   }
 
   .hero-label {
@@ -127,9 +127,20 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-ctas {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 360px;
+  }
+
+  .cv-btn {
+    display: block;
+    text-align: center;
+  }
+
+  .hero-nav-btns {
+    display: flex;
+    gap: 0.75rem;
     flex-wrap: wrap;
-    align-items: center;
   }
 
   /* ── Entry cards ──────────────────────── */
@@ -161,13 +172,6 @@ import Layout from '../layouts/Layout.astro';
   .entry-card:hover {
     background: var(--surface);
     text-decoration: none;
-  }
-
-  .entry-num {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--muted);
   }
 
   .entry-title {
