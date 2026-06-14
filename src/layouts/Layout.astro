@@ -1,23 +1,70 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Thomas Ptashnik — Researcher, Teacher, and AI Coach at Providence College.",
+} = Astro.props;
+
+const { pathname } = Astro.url;
+
+function isActive(path: string) {
+  if (path === "/") return pathname === "/";
+  return pathname.startsWith(path);
+}
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} — Thomas Ptashnik</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo">Thomas Ptashnik</a>
+        <ul class="nav-links">
+          <li><a href="/research" class:list={{ active: isActive("/research") }}>Research</a></li>
+          <li><a href="/teaching" class:list={{ active: isActive("/teaching") }}>Teaching</a></li>
+          <li><a href="/consulting" class:list={{ active: isActive("/consulting") }}>Consulting</a></li>
+          <li><a href="/press" class:list={{ active: isActive("/press") }}>Press</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <p class="footer-left">© {new Date().getFullYear()} Thomas Ptashnik</p>
+        <div class="footer-links">
+          <!-- TODO: replace href="#" with your actual Google Scholar URL -->
+          <a href="#" target="_blank" rel="noopener">Google Scholar</a>
+          <!-- TODO: replace href="#" with your actual LinkedIn URL -->
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.thenoticingproject.org" target="_blank" rel="noopener">The Noticing Project</a>
+          <a href="mailto:thomasptashnik@gmail.com">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

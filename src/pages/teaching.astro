@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Teaching" description="Courses in Human Resource Management and Managing & Organizing at Providence College, plus The Noticing Project.">
+
+  <section class="page-header section">
+    <div class="container">
+      <p class="section-label">Teaching</p>
+      <h1 class="page-title">Building careers students love.</h1>
+      <p class="page-subtitle">
+        My goal is to help students articulate what their dream job looks like — and give them
+        the practical tools to go get it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Courses ───────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Courses at Providence College</p>
+      <div class="courses-grid">
+
+        <div class="course-card">
+          <div class="course-header">
+            <span class="course-code">MGT 320</span>
+            <h2 class="course-title">Human Resource Management</h2>
+          </div>
+          <p class="course-semesters">Fall 2023 · Spring 2024 · Fall 2025 · Spring 2025</p>
+          <p class="course-desc">
+            Covers job analysis and design, recruitment, selection, employee management, and
+            compensation. Students leave with an updated resume, a LinkedIn outreach message,
+            and a refined elevator pitch.
+          </p>
+          <div class="course-footer">
+            <!--
+              SYLLABUS: Upload your syllabus PDF to public/files/ and update the href below.
+              Example: href="/files/MGT320_F2025.pdf"
+            -->
+            <a href="#" class="course-syllabus">Download syllabus (PDF) →</a>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-header">
+            <span class="course-code">MGT 101</span>
+            <h2 class="course-title">Intro to Managing &amp; Organizing</h2>
+          </div>
+          <p class="course-semesters">Fall 2025 · Spring 2025</p>
+          <p class="course-desc">
+            Focuses on self-awareness, leadership development, and effective organizational
+            collaboration. Students develop a language for understanding how organizations work
+            and how to work within them.
+          </p>
+          <div class="course-footer">
+            <!--
+              SYLLABUS: Upload your syllabus PDF to public/files/ and update the href below.
+              Example: href="/files/MGT101_S2025.pdf"
+            -->
+            <a href="#" class="course-syllabus">Download syllabus (PDF) →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Noticing Project ───────────────────────────── -->
+  <section class="noticing-section section">
+    <div class="container noticing-inner">
+      <div class="noticing-text">
+        <p class="section-label">Educational Initiative</p>
+        <h2 class="noticing-heading">The Noticing Project</h2>
+        <p class="noticing-body">
+          An initiative I co-founded to help high school and college students develop self-awareness
+          and reflection skills. In a world increasingly shaped by AI, the capacity to notice —
+          to pay attention to yourself, your reactions, and your environment — is more valuable
+          than ever.
+        </p>
+        <p class="noticing-body">
+          The Noticing Project provides frameworks, activities, and classroom resources designed
+          to build this skill systematically.
+        </p>
+        <a
+          href="https://www.thenoticingproject.org"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary"
+        >
+          Visit the Noticing Project →
+        </a>
+      </div>
+      <div class="noticing-aside">
+        <div class="noticing-quote">
+          <blockquote>
+            "The ability to notice is a prerequisite for everything else."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .page-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── Courses ──────────────────────────── */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .course-card {
+    padding: 2.5rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .course-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .course-code {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .course-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.3;
+  }
+
+  .course-semesters {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .course-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .course-footer {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .course-syllabus {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .course-syllabus:hover {
+    opacity: 0.75;
+    text-decoration: none;
+  }
+
+  /* ── Noticing Project ─────────────────── */
+  .noticing-section {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .noticing-inner {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .noticing-section .section-label {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .noticing-heading {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+  }
+
+  .noticing-body {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.85;
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .noticing-body:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  .noticing-section .btn-primary {
+    background: var(--white);
+    color: var(--navy);
+    border-color: var(--white);
+  }
+
+  .noticing-section .btn-primary:hover {
+    background: rgba(255,255,255,0.9);
+  }
+
+  .noticing-aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .noticing-quote {
+    border-left: 3px solid rgba(255,255,255,0.25);
+    padding-left: 1.75rem;
+  }
+
+  .noticing-quote blockquote {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+
+  /* ── Responsive ───────────────────────── */
+  @media (max-width: 720px) {
+    .courses-grid {
+      grid-template-columns: 1fr;
+    }
+    .noticing-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

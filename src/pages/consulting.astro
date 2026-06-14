@@ -1,0 +1,464 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Consulting" description="AI coaching, agent workflow delivery, and website building for professionals navigating the shift to AI.">
+
+  <section class="page-header section">
+    <div class="container">
+      <p class="section-label">Consulting</p>
+      <h1 class="page-title">Let's work together.</h1>
+      <p class="page-subtitle">
+        Whether you're a professional figuring out where AI fits your work,
+        an instructor looking for classroom tools, or a researcher interested in collaborating —
+        find your path below.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Interactive tool ──────────────────────────── -->
+  <section class="tool-section section">
+    <div class="container">
+
+      <!-- Question -->
+      <div id="tool-question">
+        <h2 class="tool-heading">What brings you here?</h2>
+        <div class="tool-cards">
+
+          <button class="tool-card" data-path="professional">
+            <span class="tool-card-label">Professional</span>
+            <span class="tool-card-desc">I want to use AI agents in my work</span>
+            <span class="tool-card-arrow">→</span>
+          </button>
+
+          <button class="tool-card" data-path="instructor">
+            <span class="tool-card-label">Instructor</span>
+            <span class="tool-card-desc">I teach and want tools for my classroom</span>
+            <span class="tool-card-arrow">→</span>
+          </button>
+
+          <button class="tool-card" data-path="researcher">
+            <span class="tool-card-label">Researcher</span>
+            <span class="tool-card-desc">I work in organizational research</span>
+            <span class="tool-card-arrow">→</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Result: Professional -->
+      <div id="result-professional" class="tool-result" hidden>
+        <button class="back-btn" data-back>← Back</button>
+        <div class="result-inner">
+          <p class="result-eyebrow">For you as a professional</p>
+          <h2 class="result-heading">Here's how I can help.</h2>
+          <p class="result-body">
+            I work with professionals who are navigating the shift to AI — whether you're figuring
+            out where to start, building workflows for your team, or need a technical partner to
+            build something you've been imagining.
+          </p>
+
+          <div class="services-grid">
+            <div class="service-card">
+              <h3>AI Coaching</h3>
+              <p>1:1 sessions to help you identify where AI fits your role, build confidence with new tools, and develop a personal system that actually sticks.</p>
+            </div>
+            <div class="service-card">
+              <h3>Agent Workflows</h3>
+              <p>I design and deliver custom agent workflows tailored to your specific work — automating the right things so you can focus on what matters.</p>
+            </div>
+            <div class="service-card">
+              <h3>Websites &amp; Tools</h3>
+              <p>Need a site, a portfolio, or a custom tool? I build clean, functional products for people who know what they want but don't want to build it themselves.</p>
+            </div>
+          </div>
+
+          <div class="contact-block">
+            <h3 class="contact-heading">Ready to get started?</h3>
+            <p class="contact-sub">Tell me a bit about where you are and what you're working toward. I'll respond within 48 hours.</p>
+
+            <!--
+              FORM SETUP: To activate this form:
+              1. Create a free account at formspree.io
+              2. Create a new form and copy the form ID
+              3. Replace YOUR_FORM_ID below with your actual ID
+            -->
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" required placeholder="Your name" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required placeholder="you@example.com" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="interest">What interests you most?</label>
+                <select id="interest" name="interest">
+                  <option value="">Select one</option>
+                  <option value="coaching">AI Coaching</option>
+                  <option value="workflows">Agent Workflows</option>
+                  <option value="website">Website or Tool Build</option>
+                  <option value="unsure">Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">What are you working on?</label>
+                <textarea id="message" name="message" rows="4" placeholder="A sentence or two is plenty."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send a message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result: Instructor -->
+      <div id="result-instructor" class="tool-result" hidden>
+        <button class="back-btn" data-back>← Back</button>
+        <div class="result-inner result-centered">
+          <p class="result-eyebrow">For you as an instructor</p>
+          <h2 class="result-heading">The Noticing Project</h2>
+          <p class="result-body result-body-wide">
+            An educational initiative I co-founded to help high school and college students develop
+            self-awareness and reflection skills — capacities that are increasingly critical as AI
+            reshapes what it means to learn and work. The site has resources, activities, and
+            frameworks designed for classroom use.
+          </p>
+          <a
+            href="https://www.thenoticingproject.org"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary"
+          >
+            Explore the Noticing Project →
+          </a>
+        </div>
+      </div>
+
+      <!-- Result: Researcher -->
+      <div id="result-researcher" class="tool-result" hidden>
+        <button class="back-btn" data-back>← Back</button>
+        <div class="result-inner result-centered">
+          <p class="result-eyebrow">For you as a researcher</p>
+          <h2 class="result-heading">My Research</h2>
+          <p class="result-body result-body-wide">
+            My work sits at the intersection of well-being, working parents, and organizational
+            behavior — with a focus on longitudinal methods and meta-analysis. I publish in
+            journals including <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>.
+            I'm always open to conversations about collaboration, methodology, or pipeline work.
+          </p>
+          <div class="result-ctas">
+            <a href="/research" class="btn btn-primary">See my research →</a>
+            <a href="mailto:thomasptashnik@gmail.com" class="btn btn-outline">Get in touch</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Page header ──────────────────────── */
+  .page-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── Tool question ────────────────────── */
+  .tool-heading {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tool-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    max-width: 800px;
+  }
+
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem 1.75rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    font-family: var(--font-sans);
+    position: relative;
+  }
+
+  .tool-card:hover {
+    border-color: var(--navy);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(28, 53, 86, 0.1);
+  }
+
+  .tool-card.selecting {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .tool-card.selecting .tool-card-label,
+  .tool-card.selecting .tool-card-desc,
+  .tool-card.selecting .tool-card-arrow {
+    color: var(--white);
+  }
+
+  .tool-card-label {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark);
+    transition: color 0.2s;
+  }
+
+  .tool-card-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+    transition: color 0.2s;
+  }
+
+  .tool-card-arrow {
+    font-size: 1rem;
+    color: var(--navy);
+    margin-top: 0.75rem;
+    transition: color 0.2s;
+  }
+
+  /* ── Result panels ────────────────────── */
+  .tool-result {
+    animation: fadeUp 0.3s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 0;
+    margin-bottom: 2.5rem;
+    transition: color 0.15s;
+  }
+
+  .back-btn:hover {
+    color: var(--dark);
+  }
+
+  .result-inner {
+    max-width: 740px;
+  }
+
+  .result-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-heading {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .result-body {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.85;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .result-body-wide {
+    max-width: 600px;
+  }
+
+  .result-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Services grid ────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .service-card {
+    padding: 1.75rem;
+    background: var(--surface);
+    border-top: 2px solid var(--navy);
+  }
+
+  .service-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── Contact form ─────────────────────── */
+  .contact-block {
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+
+  .contact-heading {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 560px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--navy);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  /* ── Responsive ───────────────────────── */
+  @media (max-width: 720px) {
+    .tool-cards {
+      grid-template-columns: 1fr;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const question = document.getElementById('tool-question')!;
+  const results = document.querySelectorAll<HTMLElement>('.tool-result');
+  const cards = document.querySelectorAll<HTMLButtonElement>('.tool-card');
+  const backBtns = document.querySelectorAll<HTMLButtonElement>('[data-back]');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const path = card.dataset.path!;
+      card.classList.add('selecting');
+
+      setTimeout(() => {
+        question.style.opacity = '0';
+        question.style.transition = 'opacity 0.2s';
+        setTimeout(() => {
+          question.hidden = true;
+          question.style.opacity = '';
+          question.style.transition = '';
+          card.classList.remove('selecting');
+          const target = document.getElementById(`result-${path}`)!;
+          target.hidden = false;
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }, 250);
+    });
+  });
+
+  backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      results.forEach(r => { r.hidden = true; });
+      question.hidden = false;
+      question.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>

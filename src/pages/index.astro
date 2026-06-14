@@ -1,11 +1,265 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home" description="Thomas Ptashnik — Assistant Professor at Providence College. Researcher, teacher, and AI coach.">
+
+  <!-- ── Hero ──────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container hero-inner">
+
+      <div class="hero-photo-wrap">
+        <!--
+          HEADSHOT: Drop your photo at public/images/headshot.jpg, then replace
+          the <div class="headshot-placeholder"> below with:
+          <img src="/images/headshot.jpg" alt="Thomas Ptashnik" class="headshot-img" />
+        -->
+        <div class="headshot-placeholder" aria-label="Headshot placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <p>Your headshot</p>
+          <code>public/images/headshot.jpg</code>
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <p class="hero-label">Assistant Professor · Providence College</p>
+        <h1 class="hero-name">Thomas Ptashnik</h1>
+        <!--
+          ONE-LINER: Placeholder — revisit when the site is ready to launch.
+        -->
+        <p class="hero-tagline">
+          I study working parents, well-being, and work.<br />
+          I teach students how to build careers they love.<br />
+          I coach professionals on AI.
+        </p>
+        <div class="hero-ctas">
+          <a href="/research" class="btn btn-primary">Research</a>
+          <a href="/teaching" class="btn btn-outline">Teaching</a>
+          <a href="/consulting" class="btn btn-outline">Work with me</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Entry cards ───────────────────────────────── -->
+  <section class="entries section">
+    <div class="container">
+      <div class="entry-grid">
+
+        <a href="/research" class="entry-card">
+          <span class="entry-num">01</span>
+          <h2 class="entry-title">Research</h2>
+          <p class="entry-desc">
+            Publications in <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>,
+            with an active pipeline on well-being, working parents, and organizational behavior.
+          </p>
+          <span class="entry-link">Explore research →</span>
+        </a>
+
+        <a href="/teaching" class="entry-card">
+          <span class="entry-num">02</span>
+          <h2 class="entry-title">Teaching</h2>
+          <p class="entry-desc">
+            Courses in Human Resource Management and Managing &amp; Organizing at Providence College,
+            plus The Noticing Project — an educational initiative for high school and college students.
+          </p>
+          <span class="entry-link">See courses →</span>
+        </a>
+
+        <a href="/consulting" class="entry-card">
+          <span class="entry-num">03</span>
+          <h2 class="entry-title">Consulting</h2>
+          <p class="entry-desc">
+            1:1 coaching for professionals navigating the shift to AI — from building agent workflows
+            to developing the tools and sites you need to move faster.
+          </p>
+          <span class="entry-link">Work with me →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  /* ── Hero ─────────────────────────────── */
+  .hero {
+    padding: 6rem 0 5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .headshot-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .headshot-placeholder svg {
+    color: var(--border);
+  }
+
+  .headshot-placeholder p {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .headshot-placeholder code {
+    font-size: 0.72rem;
+    background: var(--border);
+    padding: 0.2rem 0.5rem;
+    color: var(--muted);
+  }
+
+  .headshot-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .hero-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Entry cards ──────────────────────── */
+  .entries {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--border);
+  }
+
+  .entry-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem;
+    text-decoration: none;
+    color: inherit;
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+    gap: 0.75rem;
+  }
+
+  .entry-card:last-child {
+    border-right: none;
+  }
+
+  .entry-card:hover {
+    background: var(--surface);
+    text-decoration: none;
+  }
+
+  .entry-num {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .entry-title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-top: 0.25rem;
+  }
+
+  .entry-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .entry-link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-top: 0.5rem;
+  }
+
+  /* ── Responsive ───────────────────────── */
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .headshot-placeholder,
+    .headshot-img {
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .hero-text {
+      text-align: center;
+    }
+    .hero-ctas {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 3rem 0;
+    }
+    .entry-grid {
+      grid-template-columns: 1fr;
+    }
+    .entry-card {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .entry-card:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
