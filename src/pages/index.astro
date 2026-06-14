@@ -9,34 +9,20 @@ import Layout from '../layouts/Layout.astro';
     <div class="container hero-inner">
 
       <div class="hero-photo-wrap">
-        <!--
-          HEADSHOT: Drop your photo at public/images/headshot.jpg, then replace
-          the <div class="headshot-placeholder"> below with:
-          <img src="/images/headshot.jpg" alt="Thomas Ptashnik" class="headshot-img" />
-        -->
-        <div class="headshot-placeholder" aria-label="Headshot placeholder">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-          </svg>
-          <p>Your headshot</p>
-          <code>public/images/headshot.jpg</code>
-        </div>
+        <img src="/thomas-image.jpeg" alt="Thomas Ptashnik" class="headshot-img" />
       </div>
 
       <div class="hero-text">
         <p class="hero-label">Assistant Professor · Providence College</p>
         <h1 class="hero-name">Thomas Ptashnik</h1>
-        <!--
-          ONE-LINER: Placeholder — revisit when the site is ready to launch.
-        -->
         <p class="hero-tagline">
-          I study working parents, well-being, and work.<br />
-          I teach students how to build careers they love.<br />
+          I study what makes work meaningful — especially for working parents.<br />
+          I help students build careers they love.<br />
           I coach professionals on AI.
         </p>
         <div class="hero-ctas">
-          <a href="/research" class="btn btn-primary">Research</a>
+          <a href="/cv.docx" download class="btn btn-primary">Download CV</a>
+          <a href="/research" class="btn btn-outline">Research</a>
           <a href="/teaching" class="btn btn-outline">Teaching</a>
           <a href="/consulting" class="btn btn-outline">Work with me</a>
         </div>
@@ -95,46 +81,23 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-inner {
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 400px 1fr;
     gap: 5rem;
     align-items: center;
   }
 
-  .headshot-placeholder {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    background: var(--surface);
-    border: 2px dashed var(--border);
+  .hero-photo-wrap {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    color: var(--muted);
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .headshot-placeholder svg {
-    color: var(--border);
-  }
-
-  .headshot-placeholder p {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-
-  .headshot-placeholder code {
-    font-size: 0.72rem;
-    background: var(--border);
-    padding: 0.2rem 0.5rem;
-    color: var(--muted);
+    align-items: center;
   }
 
   .headshot-img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
+    width: 380px;
+    height: 380px;
     object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
   }
 
   .hero-label {
@@ -166,6 +129,7 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   /* ── Entry cards ──────────────────────── */
@@ -229,15 +193,25 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* ── Responsive ───────────────────────── */
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
+    .hero-inner {
+      grid-template-columns: 320px 1fr;
+      gap: 3rem;
+    }
+    .headshot-img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 720px) {
     .hero-inner {
       grid-template-columns: 1fr;
       gap: 2.5rem;
     }
-    .headshot-placeholder,
     .headshot-img {
-      max-width: 260px;
-      margin: 0 auto;
+      width: 240px;
+      height: 240px;
     }
     .hero-text {
       text-align: center;
