@@ -14,7 +14,8 @@ import Layout from '../layouts/Layout.astro';
 
       <div class="hero-text">
         <p class="hero-label">Assistant Professor · Providence College</p>
-        <h1 class="hero-name">Thomas Ptashnik</h1>
+        <p class="hero-education">B.A., University of Georgia &nbsp;·&nbsp; Ph.D., University of Iowa</p>
+        <h1 class="hero-name">Thomas Ptashnik, Ph.D.</h1>
         <p class="hero-tagline">
           I study what makes work meaningful — especially for working parents.<br />
           I help students build careers they love.<br />
@@ -26,6 +27,14 @@ import Layout from '../layouts/Layout.astro';
             <a href="/research" class="btn btn-outline">Research</a>
             <a href="/teaching" class="btn btn-outline">Teaching</a>
             <a href="/consulting" class="btn btn-outline">Work with me</a>
+          </div>
+        </div>
+        <div class="bio-toggle-wrap">
+          <button class="btn btn-primary bio-toggle-btn" aria-expanded="false" aria-controls="bio-panel">
+            About &nbsp;<span class="bio-arrow">▾</span>
+          </button>
+          <div id="bio-panel" class="bio-panel" hidden>
+            <p>Dr. Thomas Ptashnik conducts research on working parents, well-being, human resource management, and longitudinal modeling. His work has been published in leading outlets like <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>, featured in business magazines such as Fast Company, put into practice at the Veterans Health Administration, sponsored by the Centers for Disease Control and Prevention, and presented at the annual meetings of the Academy of Management and the Society for Industrial and Organizational Psychology.</p>
           </div>
         </div>
       </div>
@@ -72,6 +81,21 @@ import Layout from '../layouts/Layout.astro';
 
 </Layout>
 
+<script>
+  const bioBtn = document.querySelector<HTMLButtonElement>('.bio-toggle-btn');
+  const bioPanel = document.getElementById('bio-panel');
+
+  bioBtn?.addEventListener('click', () => {
+    const expanded = bioBtn.getAttribute('aria-expanded') === 'true';
+    bioBtn.setAttribute('aria-expanded', String(!expanded));
+    if (expanded) {
+      bioPanel!.hidden = true;
+    } else {
+      bioPanel!.hidden = false;
+    }
+  });
+</script>
+
 <style>
   /* ── Hero ─────────────────────────────── */
   .hero {
@@ -113,10 +137,19 @@ import Layout from '../layouts/Layout.astro';
 
   .hero-name {
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-size: clamp(1.9rem, 3.2vw, 2.6rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .hero-education {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
   }
 
   .hero-tagline {
@@ -150,6 +183,44 @@ import Layout from '../layouts/Layout.astro';
   .hero-nav-btns .btn {
     font-size: 0.78rem;
     padding: 0.6rem 1.1rem;
+  }
+
+  /* ── Bio dropdown ────────────────────── */
+  .bio-toggle-wrap {
+    max-width: 360px;
+    margin-top: 0.75rem;
+  }
+
+  .bio-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    cursor: pointer;
+  }
+
+  .bio-arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+    font-style: normal;
+  }
+
+  .bio-toggle-btn[aria-expanded="true"] .bio-arrow {
+    transform: rotate(180deg);
+  }
+
+  .bio-panel {
+    background: var(--navy);
+    color: var(--white);
+    padding: 1.4rem 1.6rem;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+  }
+
+  .bio-panel em {
+    font-style: italic;
   }
 
   /* ── Entry cards ──────────────────────── */
@@ -241,12 +312,19 @@ import Layout from '../layouts/Layout.astro';
       text-align: center;
       width: 100%;
     }
+    .bio-toggle-wrap {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
   @media (max-width: 480px) {
     .hero-label {
       font-size: 0.64rem;
       letter-spacing: 0.07em;
+    }
+    .bio-toggle-wrap {
+      max-width: 100%;
     }
   }
 

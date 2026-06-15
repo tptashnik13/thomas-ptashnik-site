@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Consulting" description="AI coaching, agent workflow delivery, and website building for professionals navigating the shift to AI.">
+<Layout title="Work with me" description="AI coaching, agent workflow delivery, and website building for professionals navigating the shift to AI.">
 
   <section class="page-header section">
     <div class="container">
@@ -58,6 +58,11 @@ import Layout from '../layouts/Layout.astro';
             build something you've been imagining.
           </p>
 
+          <div class="cred-note">
+            <span class="cred-note-label">Academic background</span>
+            <p>At Providence College, I teach two courses that directly inform this work: HR management (<strong>MGT 320</strong>) and HR analytics &amp; agentic AI (<strong>MGT 370</strong>), in which I cover the basics of R, prompt engineering, and semi-autonomous agents using Claude Code, preparing students for a data-driven, AI-inflected profession. I bring the same frameworks to every coaching engagement.</p>
+          </div>
+
           <div class="services-grid">
             <div class="service-card">
               <h3>AI Coaching</h3>
@@ -111,10 +116,7 @@ import Layout from '../layouts/Layout.astro';
           <p class="result-eyebrow">For you as a researcher</p>
           <h2 class="result-heading">My Research</h2>
           <p class="result-body result-body-wide">
-            My work sits at the intersection of well-being, working parents, and organizational
-            behavior, with a focus on longitudinal methods and meta-analysis. I publish in
-            journals including <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>.
-            I'm always open to conversations about collaboration, methodology, or pipeline work.
+            My work sits at the intersection of organizational behavior and HRM, spanning work–family dynamics, HR systems, and employee well-being, with prosocial motivation and communal orientation as a connecting thread and a focus on longitudinal methods and meta-analysis. I publish in journals including <em>Psychological Bulletin</em> and the <em>Journal of Applied Psychology</em>. I'm always open to conversations about methodology, co-authorship, or data partnerships in the areas of well-being, working parents, and human resource management.
           </p>
           <div class="result-ctas">
             <a href="/research" class="btn btn-primary">See my research →</a>
@@ -283,6 +285,30 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* ── Credential note ─────────────────── */
+  .cred-note {
+    border-left: 3px solid var(--navy);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 2.25rem;
+    background: var(--surface);
+  }
+
+  .cred-note-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .cred-note p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.75;
   }
 
   /* ── Services grid ────────────────────── */
