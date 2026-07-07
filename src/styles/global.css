@@ -176,6 +176,7 @@ nav {
   color: var(--muted);
   text-decoration: none;
   transition: color 0.15s;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,
