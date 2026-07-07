@@ -1,0 +1,505 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// ── CSV parser ───────────────────────────────────────────────────────────────
+function parseRow(line: string): string[] {
+  const result: string[] = [];
+  let i = 0;
+  while (i <= line.length) {
+    if (i === line.length) break;
+    if (line[i] === '"') {
+      let j = i + 1;
+      while (j < line.length) {
+        if (line[j] === '"' && line[j + 1] === '"') { j += 2; continue; }
+        if (line[j] === '"') break;
+        j++;
+      }
+      result.push(line.slice(i + 1, j).replace(/""/g, '"'));
+      i = j + 2;
+    } else {
+      let j = i;
+      while (j < line.length && line[j] !== ',') j++;
+      result.push(line.slice(i, j));
+      i = j + 1;
+    }
+  }
+  return result;
+}
+
+function parseCSV(text: string) {
+  const lines = text.replace(/\r/g, '').split('\n').filter(l => l.trim());
+  const headers = parseRow(lines[0]);
+  return lines.slice(1).map(line => {
+    const vals = parseRow(line);
+    return Object.fromEntries(headers.map((h, i) => [h, (vals[i] ?? '').trim()]));
+  });
+}
+
+// ── Load & filter ────────────────────────────────────────────────────────────
+const HIDDEN_TITLES = new Set(['Every Day, Holy Day: 365 Days of Teachings and Practices from the Jewish Tradition of Mussar']);
+
+const raw = readFileSync(join(process.cwd(), 'src/data/reading.csv'), 'utf-8');
+const books = parseCSV(raw);
+
+const currentlyReading = books.filter(
+  b => b['Read Status'] === 'currently-reading' && !HIDDEN_TITLES.has(b.Title)
+);
+
+const readBooks = books
+  .filter(b => b['Read Status'] === 'read')
+  .sort((a, b) => {
+    const da = a['Last Date Read'] || '0000/00/00';
+    const db = b['Last Date Read'] || '0000/00/00';
+    return db.localeCompare(da);
+  });
+
+const dated   = readBooks.filter(b => b['Last Date Read']);
+const undated = readBooks.filter(b => !b['Last Date Read']);
+
+type BookMap = Record<string, typeof books>;
+const byYear: BookMap = {};
+for (const book of dated) {
+  const year = book['Last Date Read'].slice(0, 4);
+  if (!byYear[year]) byYear[year] = [];
+  byYear[year].push(book);
+}
+const years = Object.keys(byYear).sort((a, b) => Number(b) - Number(a));
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function coverUrl(isbn: string, size = 'M') {
+  if (!isbn || isbn.length < 9) return '';
+  return `https://covers.openlibrary.org/b/isbn/${isbn}-${size}.jpg`;
+}
+
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDate(d: string) {
+  if (!d) return '';
+  const [y, m] = d.split('/');
+  return `${MONTHS[Number(m) - 1]} ${y}`;
+}
+---
+
+<Layout
+  title="Reading"
+  description="What Thomas Ptashnik reads when not conducting research and teaching — an eclectic mix of fiction and non-fiction."
+>
+
+  <!-- ── Page header ───────────────────────────────── -->
+  <section class="page-header section">
+    <div class="container">
+      <p class="section-label">Thomas Ptashnik</p>
+      <h1 class="page-title">Reading</h1>
+      <p class="page-subtitle">
+        What I spend my time reading when I'm not conducting research and teaching.
+        An eclectic mix of fiction and non-fiction. Tracked on <a href="https://app.thestorygraph.com/profile/tptashnik" target="_blank" rel="noopener">Storygraph</a>.
+      </p>
+
+      <div class="header-tools">
+        <div class="search-wrap">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            id="book-search"
+            type="search"
+            placeholder="Search all reads…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+
+        <form id="recommend-form" class="recommend-form">
+          <label class="recommend-label" for="recommend-input">Recommend a book</label>
+          <div class="recommend-row">
+            <input
+              id="recommend-input"
+              type="text"
+              placeholder="Title and author…"
+              autocomplete="off"
+            />
+            <button type="submit" class="btn btn-primary">Recommend</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Currently Reading ─────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-heading">Currently Reading</h2>
+      <div class="current-grid">
+        {currentlyReading.map(book => {
+          const cover = coverUrl(book['ISBN/UID'], 'M');
+          return (
+            <div class="book-tile">
+              <div class="cover-wrap">
+                {cover
+                  ? <img
+                      src={cover}
+                      alt={`Cover of ${book.Title}`}
+                      class="cover-img"
+                      onerror="this.parentElement.classList.add('no-cover')"
+                    />
+                  : <div class="cover-placeholder" />
+                }
+              </div>
+              <p class="tile-title">{book.Title}</p>
+              <p class="tile-author">{book.Authors}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Past Reads ────────────────────────────────── -->
+  <section class="section" id="all-reads">
+    <div class="container">
+      <h2 class="section-heading">All Reads <span class="count" id="read-count">({readBooks.length})</span></h2>
+
+      <p class="no-results" id="no-results" hidden>No books match your search.</p>
+
+      {years.map(year => (
+        <div class="year-group" data-year-group>
+          <div class="year-label">{year}</div>
+          <ul class="book-list">
+            {byYear[year].map(book => (
+              <li
+                class="book-row"
+                data-book-row
+                data-search={`${book.Title} ${book.Authors}`.toLowerCase()}
+              >
+                <span class="book-title">{book.Title}</span>
+                <span class="book-author">{book.Authors}</span>
+                <span class="book-meta">
+                  {book['Last Date Read'] && <span class="book-date">{fmtDate(book['Last Date Read'])}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      {undated.length > 0 && (
+        <div class="year-group" data-year-group>
+          <div class="year-label">Earlier</div>
+          <ul class="book-list">
+            {undated.map(book => (
+              <li
+                class="book-row"
+                data-book-row
+                data-search={`${book.Title} ${book.Authors}`.toLowerCase()}
+              >
+                <span class="book-title">{book.Title}</span>
+                <span class="book-author">{book.Authors}</span>
+                <span class="book-meta"></span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  // ── Search ───────────────────────────────────────────────────────────────────
+  const searchInput = document.getElementById('book-search') as HTMLInputElement;
+  const noResults   = document.getElementById('no-results') as HTMLParagraphElement;
+  const countEl     = document.getElementById('read-count') as HTMLSpanElement;
+  const totalCount  = document.querySelectorAll('[data-book-row]').length;
+
+  searchInput?.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+
+    document.querySelectorAll<HTMLElement>('[data-year-group]').forEach(group => {
+      let groupVisible = 0;
+      group.querySelectorAll<HTMLElement>('[data-book-row]').forEach(row => {
+        const match = !q || row.dataset.search?.includes(q);
+        row.hidden = !match;
+        if (match) { visible++; groupVisible++; }
+      });
+      group.hidden = groupVisible === 0;
+    });
+
+    noResults.hidden = visible > 0 || !q;
+    countEl.textContent = q ? `(${visible} of ${totalCount})` : `(${totalCount})`;
+  });
+
+  // ── Recommend a book ─────────────────────────────────────────────────────────
+  const recommendForm  = document.getElementById('recommend-form') as HTMLFormElement;
+  const recommendInput = document.getElementById('recommend-input') as HTMLInputElement;
+
+  recommendForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const book = recommendInput.value.trim();
+    if (!book) return;
+    const subject = encodeURIComponent('Book Recommendation');
+    const body    = encodeURIComponent(`Hi Thomas,\n\nI'd recommend: ${book}\n`);
+    window.location.href = `mailto:thomasptashnik@gmail.com?subject=${subject}&body=${body}`;
+    recommendInput.value = '';
+  });
+</script>
+
+<style>
+  .page-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Header tools ─────────────────────────────────── */
+  .header-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 480px;
+  }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--muted);
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  #book-search {
+    width: 100%;
+    padding: 0.6rem 0.75rem 0.6rem 2.25rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #book-search::placeholder { color: var(--muted); }
+  #book-search:focus { border-color: var(--navy); }
+  #book-search::-webkit-search-cancel-button { cursor: pointer; }
+
+  /* Recommend */
+  .recommend-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .recommend-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #recommend-input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #recommend-input::placeholder { color: var(--muted); }
+  #recommend-input:focus { border-color: var(--navy); }
+
+  /* ── Section headings ─────────────────────────────── */
+  .section-heading {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .count {
+    font-weight: 400;
+  }
+
+  .no-results {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 2rem 0;
+  }
+
+  /* ── Currently reading grid ───────────────────────── */
+  .current-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2rem;
+  }
+
+  .book-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .cover-wrap {
+    aspect-ratio: 2 / 3;
+    background: var(--surface);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .cover-wrap.no-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--surface);
+  }
+
+  .tile-title {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--dark);
+  }
+
+  .tile-author {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── Past reads ───────────────────────────────────── */
+  .year-group {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .year-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.15rem;
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+    align-self: start;
+  }
+
+  .book-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.6rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .book-row:last-child {
+    border-bottom: none;
+  }
+
+  .book-title {
+    font-family: var(--font-serif);
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .book-author {
+    color: var(--muted);
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
+
+  .book-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .book-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 640px) {
+    .header-tools {
+      max-width: 100%;
+    }
+
+    .current-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .year-group {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .year-label {
+      position: static;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    .book-meta {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>
